@@ -1,0 +1,42 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-card">
+	<div class="layui-card-body">
+        <div class="layui-btn-group">
+            <a href="{:url('admin/shop/add')}" data-width="500px" data-height="475px" class="layui-btn ajax-iframe"><i class="fa fa-plus-circle"></i> 添加</a>
+        </div>
+		<table class="layui-table layui-form">
+			<thead>
+				<tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>联系人</th>
+                                    <th>电话</th>
+                                    <th>创建时间</th>
+                                    <th>过期时间</th>
+                                    <th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach name="list" item="v" empty="$empty"}
+				<tr>
+                                        <td>{$v.id}</td>
+					<td>{$v.name}</td>
+					<td>{$v.contact}</td>
+					<td>{$v.mobile}</td>
+					<td>{$v.create_time}</td>
+                                        <td>{$v.exp_time}</td>
+					<td>
+                                            <a href="{:url('admin/user/index', ['shop_id' => $v.id])}" data-width="80%" data-height="80%" class="layui-btn layui-btn-xs layui-btn-normal ajax-iframe"><i class="fa fa-user"></i> 用户管理</a>
+                                            <a href="{:url('admin/user_auth/addgroup', ['shop_id' => $v.id])}" data-width="80%" data-height="80%" class="layui-btn layui-btn-xs layui-btn-normal ajax-iframe"><i class="fa fa-user"></i> 新增角色</a>
+                                            <a href="{:url('admin/shop/edit', ['id' => $v.id])}" data-width="500px" data-height="380px" class="layui-btn layui-btn-xs layui-btn-normal ajax-iframe"><i class="fa fa-edit"></i> 编辑</a>
+                                            <a href="{:url('admin/shop/del', ['id' => $v.id])}" class="layui-btn layui-btn-xs layui-btn-danger ajax-delete"><i class="fa fa-trash-o"></i> 删除</a>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		<div class="page">{$list|raw}</div>
+	</div>
+</div>
+{/block}

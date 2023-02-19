@@ -1,0 +1,39 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-card">
+	<div class="layui-card-body">
+        <div class="layui-btn-group">
+            <a href="{:url('admin/wechat/get_user')}" class="layui-btn layui-btn-warm ajax-action"><i class="fa fa-star"></i> 更新会员</a>
+        </div>
+		<table class="layui-table layui-form">
+			<thead>
+				<tr>
+					<th>ID</th>
+                                        <th>头像</th>
+					<th>昵称</th>
+					<th>性别</th>
+					<th>区域</th>
+					<th>关注时间</th>
+					<th>创建时间</th>
+					<th>绑定情况</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach name="list" item="v" empty="$empty"}
+				<tr>
+					<td>{$v.id}</td>
+                                        <td><img src="{$v.avatarurl}" width="60" height="60"></td>
+					<td>{$v.nickname}</td>
+					<td>{$v.gender}</td>
+					<td>{$v.country}/{$v.province}/{$v.city}</td>
+					<td>{$v.subscribe_time}</td>
+					<td>{$v.create_time}</td>
+                                        <td>暂无</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		<div class="page">{$list|raw}</div>
+	</div>
+</div>
+{/block}

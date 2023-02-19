@@ -1,0 +1,79 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-card">
+    <div class="layui-card-header">参数配置</div>
+    <div class="layui-card-body" pad15>
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li><a href="{:url('admin/config/param',['model'=>'qiniu'])}">七牛配置</a></li>
+                <li><a href="{:url('admin/config/param',['model'=>'weixin'])}">公众号配置</a></li>
+                <li class="layui-this"><a href="{:url('admin/config/param',['model'=>'wxapp'])}">微信小程序</a></li>
+                <li><a href="{:url('admin/config/param',['model'=>'wxpay'])}">微信支付</a></li>
+                <li><a href="{:url('admin/config/param',['model'=>'qcloudsms'])}">腾讯短信</a></li>
+                <li><a href="{:url('admin/config/param',['model'=>'baiduapp'])}">百度小程序</a></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <form action="{:url('admin/config/param',['model'=>'wxapp'])}" class="layui-form" method="post">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Appid</label>
+                        <div class="layui-input-inline" style="width: 400px;">
+                            <input type="text" name="appid" value="{$list.appid}" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-input-company"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">AppSecret</label>
+                        <div class="layui-input-inline" style="width: 400px;">
+                            <input type="text" name="appsecret" value="{$list.appsecret}" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-input-company"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit  lay-filter="*">确认保存</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="layui-form" wid100 lay-filter="">
+        
+            
+            
+            
+            
+        
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script>
+    element.on('tab(demo)', function(data){
+            var that = $(this);
+            var model = data.value;
+            console.log(data);
+            $.ajax({ 
+                type: 'POST',
+                url: "/user/charge/get_course_data/",
+                data:{course_id:course_id},
+                success:function(ret) {    
+                    //console.log(ret);
+                    that.closest("tr").find("select[name='course_data_id[]']").empty();
+                    that.closest("tr").find("select[name='course_data_id[]']").append("<option value=''>请选择专业</option>");
+                    $.each(ret, function(i,item){
+                        //console.log(item.level);
+                        that.closest("tr").find("select[name='course_data_id[]']").append("<option value="+item.id+">"+item.level+"</option>");
+                    });
+                    form.render('select');
+                },
+                dataType:'json',
+            });
+        });
+</script>
+{/block}

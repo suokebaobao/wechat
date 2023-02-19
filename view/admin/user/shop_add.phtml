@@ -1,0 +1,100 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form action="{:request()->url()}" class="layui-form" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="mobile" value="{$data.mobile|default=''}" autocomplete="off" placeholder="请输入手机号" lay-verify="phone|number" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="password" value="" autocomplete="off" placeholder="请输入密码" class="layui-input">
+                </div>
+            </div>
+            <hr>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商家名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" value="{$data.name|default=''}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商家类别</label>
+                <div class="layui-input-block">
+                    <select name="type">
+                        <option value="">请选择机构类别</option>
+                        {:list_select('shop_type',$data.type)}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择地区</label>
+                <div class="layui-input-block">
+                    <select name="province" id="province" lay-filter="province">
+                        <option value="">请选择省</option>
+                    </select>
+                </div>
+                <div class="layui-input-block">
+                    <select name="city" id="city" lay-filter="city">
+                        <option value="">请选择市</option>
+                    </select>
+                </div>
+                <div class="layui-input-block">
+                    <select name="area" id="area" lay-filter="area">
+                        <option value="">请选择县/区</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详细地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="address" value="{$data.address|default=''}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <hr>
+            <div class="layui-form-item">
+                <label class="layui-form-label">过期时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="exp_time" value="{$data.exp_time|default=''}" id="exptime" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="id" value="{$data.id|default=''}" autocomplete="off" placeholder="" class="layui-input">
+                    <button class="layui-btn" lay-filter="i" lay-submit="">保存</button>
+                    <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    <?php $today = date('Y-m-d',time());?>
+    laydate.render({
+        elem: '#exptime'
+        ,min: '{$today}'
+        ,max: '2080-10-14'
+    });
+    
+</script>
+<script type="text/javascript" src="/static/city-picker/assets/data.js"></script>
+<script type="text/javascript">
+    var defaults = {
+        s1: 'province',
+        s2: 'city',
+        s3: 'area',
+        v1: '福建省',
+        v2: '福州',
+        v3: '台江区'
+    };
+
+</script>
+<script type="text/javascript" src="/static/city-picker/assets/province.js"></script>
+{/block}
